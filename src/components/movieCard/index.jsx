@@ -19,6 +19,12 @@ import img from '../../images/film-poster-placeholder.png';
 export default function MovieCard({ movie, action }) { 
 
   const { favorites, addToFavorites } = useContext(MoviesContext);
+  const date = new Date(movie.release_date);
+  const month = date.toLocaleString('default', { month: 'long' }).substring(0, 3);
+  const dateString = date.getDate()+' '+month+' '+date.getFullYear();
+  // Month-parsing code found at ----------> https://stackoverflow.com/questions/1643320/get-month-name-from-date 
+  // reference used for Date class --------> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getFullYear
+  //console.log(date);
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -62,7 +68,7 @@ export default function MovieCard({ movie, action }) {
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {dateString}
             </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
